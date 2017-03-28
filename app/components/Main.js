@@ -4,11 +4,12 @@ var Search = require("./Search");
 
 var Main = React.createClass({
 	getInitialState: function() {
-		return {search_term: ""};
+		return {
+			search_term: "",
+			search_year_start: 1990,
+			search_year_end: 2017};
 	},
-	setTerm: function(term) {
-		this.setState({ search_term: term });
-	},
+	
     render: function() {
         return (
         	<div className="container">

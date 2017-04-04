@@ -1,6 +1,7 @@
 import React from "react";
-
-var Search = require("./Search");
+import Search from "./Search";
+import SavedArticles from "./SavedArticles";
+import helpers from "./utils/helpers";
 
 var Main = React.createClass({
 	getInitialState: function() {
@@ -11,18 +12,24 @@ var Main = React.createClass({
 	},
 	
     render: function() {
+    	const header_style = {
+    		textAlign: "center",
+    		backgroundColor: "#337ab7",
+    		color: "white",
+    		maxWidth: "100%"
+    	}
         return (
         	<div className="container">
-	        	<nav className = "top-nav">
-	            	<div className = "container">
-	            		<div className = "nav-wrapper" > 
-	            			<a className = "page-title" > React Scraper </a>
-	            		</div>
-	            	</div> 
-	            </nav>
-	            <div className="row">
+        		<div>
+        			<h1 style={header_style}> NYT Article 4 Scrubs </h1>
+        		</div>
+	            <div>
 	            	{this.props.children}
+	            	<Search setTerm={this.setTerm} />
 	            </div>
+		        <div className="row">
+		        	<SavedArticles saved_articles={this.state.saved_articles}/>
+		        </div> 
 	        </div>
         );
     }

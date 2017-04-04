@@ -24,17 +24,33 @@ mongoose.connect("mongodb://admin:codingrocks@ds023664.mlab.com:23664/reactlocat
 var db = mongoose.connection;
 
 db.on("error", function(err) {
-  console.log("Mongoose Error: ", err);
+    console.log("Mongoose Error: ", err);
 });
 
 db.once("open", function() {
-  console.log("Mongoose connection successful.");
+    console.log("Mongoose connection successful.");
 });
 
 app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get("/api", function(req, res) {
+    Article.find({}).sort([
+        ["date", "descending"]
+    ]).limit(5).exec(function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(doc);
+        }
+    });
+});
+
+app.post("/api/results", function(req, res){
+    console.log(req.body);
 });
 
 app.listen(PORT, function() {
-  console.log("App listening on PORT: " + PORT);
+    console.log("App listening on PORT: " + PORT);
 });

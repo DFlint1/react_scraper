@@ -4,15 +4,18 @@ import { hashHistory, Router, Route, IndexRoute } from 'react-router'
 var Main = require("../components/Main");
 var Search = require("../components/Search");
 var SavedArticles = require("../components/SavedArticles");
+var Results = require("../components/Results");
+
 
 module.exports = (
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
     	{ /*FILL THIS OUT MORE LATER*/}
-    	<Route path="Search" component={Search} />
-		<Route path="SavedArticles" component={SavedArticles} />
-    	<IndexRoute component={Search} />
+    {/*	<Route path="Search" component={Search} />
+		<Route path="SavedArticles" component={SavedArticles} /> 
+    	<IndexRoute component={Search} /> */}
+    	<Route path="Results" component={Results} /> 
+
     </Route>
   </Router>
 );
-

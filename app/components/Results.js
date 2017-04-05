@@ -2,8 +2,23 @@ import React from "react";
 
 
 var Results = React.createClass({
-	handleSubmit: function(){
-		console.log(this);
+	handleSubmit: function(event){
+		event.preventDefault();
+	    event.target.style.visibility='hidden';
+	    this.setState({new_article: this.props.results[event.target.value]});
+	},	
+	componentDidUpdate: function(){
+	    $.ajax({
+	      method: "POST",		//TODO WORK MORE HERE
+	      url: "/api/articles",
+	      data: this.state.new_article
+	    })
+	    .then(function(data) {
+	      if (data.ok) {
+	        console.log("returned yo");
+	      }
+	    });
+
 	},
 	loop_through_results: function(){
 		var items = [];
@@ -18,7 +33,7 @@ var Results = React.createClass({
 			items.push(
 				<div key={i}>
 					<h5 style={inliner}><a style={inliner} href={item.web_url}>{item.headline.main}</a></h5>
-					<button className="submit"  style={inliner} style={save_article_style} onClick={(event)=>this.handleSubmit(event)}>save article</button>		        
+					<button value={i} className="submit" style={inliner} style={save_article_style} onClick={(event)=>this.handleSubmit(event)}>save article</button>
 					<p> {item.lead_paragraph} </p>
 					{i < 4 && <hr /> }
 				</div> 

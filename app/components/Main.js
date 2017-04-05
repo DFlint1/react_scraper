@@ -10,13 +10,23 @@ var Main = React.createClass({
 			search_year_start: 1990,
 			search_year_end: 2017};
 	},
-	
+	componentDidMount: function(){
+		console.log("starting componentDidMount in main.js");
+	    $.ajax({
+	      method: "GET",		
+	      url: "/api/articles"
+	    })
+	    .then(function(data) {
+	        console.log(data);
+	        this.setState({saved_articles: data});
+	    });
+	},
     render: function() {
     	const header_style = {
     		textAlign: "center",
     		backgroundColor: "#337ab7",
     		color: "white",
-    		maxWidth: "100%"
+    		width: "100%"
     	}
         return (
         	<div className="container">
@@ -28,7 +38,7 @@ var Main = React.createClass({
 	            	<Search setTerm={this.setTerm} />
 	            </div>
 		        <div className="row">
-		        	<SavedArticles saved_articles={this.state.saved_articles}/>
+		        	{this.state.saved_articles && <SavedArticles saved_articles={this.state.saved_articles}/> }
 		        </div> 
 	        </div>
         );
@@ -36,3 +46,5 @@ var Main = React.createClass({
 });
 
 module.exports = Main;
+
+

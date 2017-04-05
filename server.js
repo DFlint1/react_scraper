@@ -4,7 +4,11 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
+
 //TODO: db schema here
+var articles_controller = require("./controllers/controller");
+var Article = require("./models/Article");
+
 
 // Create Instance of Express
 var app = express();
@@ -20,7 +24,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.use(express.static("./public"));
 
-mongoose.connect("mongodb://admin:codingrocks@ds023664.mlab.com:23664/reactlocate");
+mongoose.connect("mongodb://heroku_jl5lxgf9:r5in3ssp80igqrdlioeq7ltmb5@ds153400.mlab.com:53400/heroku_jl5lxgf9");
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -35,7 +39,7 @@ app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 });
 
-app.get("/api", function(req, res) {
+app.get("/api/articles", function(req, res) {
     Article.find({}).sort([
         ["date", "descending"]
     ]).limit(5).exec(function(err, doc) {
@@ -47,8 +51,10 @@ app.get("/api", function(req, res) {
     });
 });
 
-app.post("/api/results", function(req, res){
-    console.log(req.body);
+app.post("/api/articles", function(req, res){
+    articles_controller.save(req.body, function(err, data){
+        res.json(data);
+    });
 });
 
 app.listen(PORT, function() {

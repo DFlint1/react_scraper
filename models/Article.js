@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
-	title: {
+	headline: {
 		type: String,
 		required: true
 	},
@@ -11,9 +11,12 @@ var ArticleSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	url: {
+	web_url: {
 		type: String,
 		required: true
+	},
+	lead_paragraph: {
+		type: String
 	}
 });
 

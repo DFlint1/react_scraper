@@ -11,6 +11,7 @@ var Main = React.createClass({
 			search_year_end: 2017};
 	},
 	componentDidMount: function(){
+		var that = this;
 		console.log("starting componentDidMount in main.js");
 	    $.ajax({
 	      method: "GET",		
@@ -18,7 +19,7 @@ var Main = React.createClass({
 	    })
 	    .then(function(data) {
 	        console.log(data);
-	        this.setState({saved_articles: data});
+	        that.setState({saved_articles: data});
 	    });
 	},
     render: function() {

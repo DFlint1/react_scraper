@@ -20,5 +20,10 @@ module.exports = {
             }
         })
     },
+    delete: function(data, cb){
+	    Article.remove({
+	      _id: data._id
+	    }, cb);
+    }
 
 };

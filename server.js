@@ -51,6 +51,14 @@ app.get("/api/articles", function(req, res) {
     });
 });
 
+app.delete("/api/articles/:id", function(req, res){
+    var query = {};
+    query._id = req.params.id;
+    articles_controller.delete(query, function(err, data){
+        res.json(data);
+    })
+})
+
 app.post("/api/articles", function(req, res){
     articles_controller.save(req.body, function(err, data){
         res.json(data);
